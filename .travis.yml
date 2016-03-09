@@ -1,0 +1,7 @@
+sudo: false
+language: erlang
+otp_release:
+  - 18.2.1
+  - 17.5
+before_install: wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3 ## Ref https://github.com/rebar/rebar3/tree/7d29b74a221ef082e4bbee496019c8f1612e8f0b#getting-started
+script: ./rebar3 compile && ./rebar3 eunit
