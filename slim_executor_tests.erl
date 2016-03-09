@@ -128,7 +128,7 @@ catchException() ->
     ?_assert(
         exceptionThrown(execute([["id", "make", "test_slim1", "test_slim"],
                                  ["id1", "call", "test_slim1", "throwException"]]),
-        "id1","message:<<hahaha [{test_slim,throwException,1},")).
+        "id1","message:<<hahaha [{test_slim,throwException,1")).
 
 %%
 %% Helper functions
