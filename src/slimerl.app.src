@@ -1,0 +1,11 @@
+{application, slimerl,
+ [{description, "Slim implementation for Erlang"},
+  {vsn, "0.1.0.googlecode"},
+  {registered, []},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []}
+ ]}.
