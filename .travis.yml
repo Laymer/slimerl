@@ -2,9 +2,19 @@ sudo: false
 language: erlang
 otp_release:
   - 18.2.1
-  - 17.5
-before_install: wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3 ## Ref https://github.com/rebar/rebar3/tree/7d29b74a221ef082e4bbee496019c8f1612e8f0b#getting-started
+  # - 17.5
+before_install:
+  - mkdir ci.d
+  - wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3 ## Ref https://github.com/rebar/rebar3/tree/7d29b74a221ef082e4bbee496019c8f1612e8f0b#getting-started
+install:
+  - (cd ci.d && git clone https://github.com/unclebob/fitnesse.git && cd fitnesse && git checkout bab1028 && ant standalone-jar) && file ci.d/fitnesse/dist/fitnesse-standalone.jar
 before_script:
   - ./rebar3 compile
   - ./rebar3 escriptize
-script: ./rebar3 eunit
+script:
+  - ./rebar3 eunit
+  - java -jar ci.d/fitnesse/dist/fitnesse-standalone.jar -d ci.d -i -v
+  - SlimErlDir="$(pwd)/_build/default/bin"; (cd ci.d && ../adapt_fitnesse_slim_ats "$SlimErlDir")
+  - cat ci.d/FitNesseRoot/FitNesse/SuiteAcceptanceTests/SuiteSlimTests/content.txt
+  - java -jar ci.d/fitnesse/dist/fitnesse-standalone.jar -p 8080 -d ci.d -c "FitNesse.SuiteAcceptanceTests.SuiteSlimTests?suite&format=text" -v
+  - java -jar ci.d/fitnesse/dist/fitnesse-standalone.jar -p 8080 -d ci.d -c "FitNesse.SuiteAcceptanceTests.SuiteSlimTests?executionLog" -v

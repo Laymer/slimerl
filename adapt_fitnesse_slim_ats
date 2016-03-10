@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -x
+
+SlimErlDir="${1:?}"
+
+CP0="${SlimErlDir}/slimerl"
+CP1='!define COMMAND_PATTERN {'"${CP0}"'}'
+sed -e "1 a\
+${CP1}" -i FitNesseRoot/FitNesse/SuiteAcceptanceTests/SuiteSlimTests/content.txt
