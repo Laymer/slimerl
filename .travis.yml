@@ -2,6 +2,19 @@ sudo: false
 language: erlang
 otp_release:
   - 18.2.1
-  - 17.5
+#  - 17.5
 before_install: wget https://s3.amazonaws.com/rebar3/rebar3 && chmod +x rebar3 ## Ref https://github.com/rebar/rebar3/tree/7d29b74a221ef082e4bbee496019c8f1612e8f0b#getting-started
-script: ./rebar3 compile && ./rebar3 eunit
+script:
+  - ./rebar3 compile && ./rebar3 eunit
+  - git clone --depth 50 https://github.com/unclebob/fitnesse.git
+  - cd fitnesse
+  - git checkout db1549a4fe8c825554f30950e4dec2d743658285
+  - Pwd=$(pwd); CommandPattern='!define COMMAND_PATTERN {erl -noshell -pa "'"${Pwd}/../_build/default/lib/slimerl/ebin"'" -pa "'"${Pwd}/../_build/test/lib/slimerl/test"'" -run slimserver listen}'
+  - sed "1 a${CommandPattern}" FitNesseRoot/FitNesse/SuiteAcceptanceTests/SuiteSlimTests/content.txt > FitNesseRoot/FitNesse/SuiteAcceptanceTests/SuiteSlimTests/content.txt
+  - cat FitNesseRoot/FitNesse/SuiteAcceptanceTests/SuiteSlimTests/content.txt
+  - ant standalone-jar
+  - cd ..
+  - mkdir sandbox
+  - cd sandbox
+  - cp -a ../fitnesse/dist/fitnesse-standalone.jar .
+  - java -jar fitnesse-standalone.jar -p 8080 -c "FitNesse.SuiteAcceptanceTests.SuiteSlimTests?suite&format=text"
