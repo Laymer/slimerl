@@ -13,7 +13,8 @@ script:
   - cat FitNesseRoot/FitNesse/SuiteAcceptanceTests/SuiteSlimTests/content.txt
   - Pwd=$(pwd); CommandPattern='!define COMMAND_PATTERN {erl -noshell -pa "'"${Pwd}/../_build/default/lib/slimerl/ebin"'" -pa "'"${Pwd}/../_build/test/lib/slimerl/test"'" -run slimserver listen}'
   - echo "${CommandPattern}"
-  - sed "1 a${CommandPattern}" FitNesseRoot/FitNesse/SuiteAcceptanceTests/SuiteSlimTests/content.txt > FitNesseRoot/FitNesse/SuiteAcceptanceTests/SuiteSlimTests/content.txt
+  - sed "1 a\
+${CommandPattern}" FitNesseRoot/FitNesse/SuiteAcceptanceTests/SuiteSlimTests/content.txt > FitNesseRoot/FitNesse/SuiteAcceptanceTests/SuiteSlimTests/content.txt
   - ls -l FitNesseRoot/FitNesse/SuiteAcceptanceTests/SuiteSlimTests/content.txt
   - cat FitNesseRoot/FitNesse/SuiteAcceptanceTests/SuiteSlimTests/content.txt
   - ant standalone-jar
