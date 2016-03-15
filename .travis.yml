@@ -11,7 +11,7 @@ script:
   - git checkout db1549a4fe8c825554f30950e4dec2d743658285
   - ls -l FitNesseRoot/FitNesse/SuiteAcceptanceTests/SuiteSlimTests/content.txt
   - cat FitNesseRoot/FitNesse/SuiteAcceptanceTests/SuiteSlimTests/content.txt
-  - Pwd=$(pwd); ../adapt_fitnesse_slim_ats "{erl -noshell -pa "'"${Pwd}/../_build/default/lib/slimerl/ebin"'" -pa "'"${Pwd}/../_build/test/lib/slimerl/test"'" -run slimserver listen}"
+  - Pwd=$(pwd); ../adapt_fitnesse_slim_ats '{erl -noshell -pa "'"${Pwd}/../_build/default/lib/slimerl/ebin"'" -pa "'"${Pwd}/../_build/test/lib/slimerl/test"'" -run slimserver listen}'
   - ls -l FitNesseRoot/FitNesse/SuiteAcceptanceTests/SuiteSlimTests/content.txt
   - cat FitNesseRoot/FitNesse/SuiteAcceptanceTests/SuiteSlimTests/content.txt
   - ant standalone-jar
