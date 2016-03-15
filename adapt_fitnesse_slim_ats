@@ -1,1 +1,9 @@
-fsddsf
+#!/bin/sh
+
+set -x
+
+CP0="${1:?}"
+
+CP1='!define COMMAND_PATTERN '"${CP0}"
+sed "1 a\
+${CP1}" FitNesseRoot/FitNesse/SuiteAcceptanceTests/SuiteSlimTests/content.txt > FitNesseRoot/FitNesse/SuiteAcceptanceTests/SuiteSlimTests/content.txt
