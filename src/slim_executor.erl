@@ -80,7 +80,7 @@ create_instance(Caller, _) ->
     {Caller, malformed_instruction}.
 
 add_path(Caller, [Id, _, Path]) ->
-    code:add_pathz(Path),
+    true = code:add_pathz(Path),
     {Caller, [Id, "ok"]};
 add_path(Caller, _) ->
     {Caller, malformed_instruction}.
