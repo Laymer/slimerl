@@ -102,7 +102,7 @@ listen(Port) ->
 do_accept(LSocket) ->
     {ok, Socket} = gen_tcp:accept(LSocket),
     io:format("Accepted ~p ~n", [Socket]),
-    gen_tcp:send(Socket, "Slim -- V0.0\n"),
+    gen_tcp:send(Socket, "Slim -- V0.3\n"),
     do_process_set_of_instruction(Socket),
     exit(ok). % only accepts one connection and exits
 
